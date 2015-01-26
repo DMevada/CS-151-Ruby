@@ -136,7 +136,7 @@ cal = Calendar.new
 #puts cal.get_last_day_of_month("Feb", 2014)
 #puts cal.month
 #puts cal.get_current_day_of_week
-#puts cal.get_current_day_of_month
+puts cal.get_current_day_of_month
 #puts cal.get_current_month
 #puts cal.get_current_year
-puts cal.print_calendar("Aug", 2015)
+#puts cal.print_calendar("Aug", 2015)
