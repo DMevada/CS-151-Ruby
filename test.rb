@@ -1,4 +1,4 @@
-
+#old way of printing calendar, too complex and unnecessary
 
 cal_array = [[]]
 

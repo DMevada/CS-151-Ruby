@@ -98,21 +98,42 @@ class Calendar
   def print_calendar(month, year)
     puts " Su Mo Tu We Th Fr Sa"
     num_of_days = calculate_days_month(month, year)
+    @col = initialize_month(month, year)
+
     @month = month
     @year = year
-
+    @today = get_current_day_of_month
     i = @day
 
     while i <= num_of_days do 
+
+      #if the day is less than 10, print 2 spaces
       if i < 10
-        if @col == 6
-          print "  #{i}"
-          puts
-          @col = 0
+
+        #if the day is today, add brackets
+        if i == @today
+          if @col == 6
+            print " [#{i}]"
+            puts
+            @col = 0
+          else
+            print " [#{i}]"
+            @col += 1
+          end
+
+        #i is not today, do not add brackets
         else
-         print "  #{i}"
-         @col += 1
+         if @col == 6
+            print "  #{i}"
+            puts
+            @col = 0
+          else
+            print "  #{i}"
+            @col += 1
+          end
         end
+  
+      #i >= 10, print 1 space
       else
         if @col == 6
           print " #{i}"
@@ -123,6 +144,7 @@ class Calendar
           @col += 1
         end
       end
+
       i+=1  
     end
   end
@@ -136,7 +158,7 @@ cal = Calendar.new
 #puts cal.get_last_day_of_month("Feb", 2014)
 #puts cal.month
 #puts cal.get_current_day_of_week
-puts cal.get_current_day_of_month
+#puts cal.get_current_day_of_month
 #puts cal.get_current_month
 #puts cal.get_current_year
-#puts cal.print_calendar("Aug", 2015)
+puts cal.print_calendar("Jan", 2015)
