@@ -103,12 +103,6 @@ class Calendar
       num_of_days = calculate_days_month(month = month.capitalize, year)
       @col = initialize_month(month = month.capitalize, year)
 
-      #puts "today is: #{@today}"
-      #puts "month is: #{month}"
-      #puts "current month is: #{@month}"
-      #puts "year is: #{year}"
-      #puts "current year is: #{@year}"
-
       while @day <= num_of_days do 
 
         #day is less than 10, print 2 spaces
