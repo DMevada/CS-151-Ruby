@@ -11,8 +11,8 @@ class Calendar
     @columns = 7
     @col, @today = 0
     @day = 1
-    @month = ""
-    @year = 0
+    @month = get_current_month.to_i
+    @year = get_current_year.to_i
   end 
 
   def calculate_days_month(month, year)
@@ -28,7 +28,7 @@ class Calendar
   end
 
   def month_lookup_by_index(index)
-    @months[index]
+    @months[index-1]
   end
 
   def month_lookup_by_name(name)
@@ -36,16 +36,13 @@ class Calendar
   end
 
   def get_first_day_of_month(month, year)
-    @month = month
-    date = Date.new(year, month_lookup_by_name(month) + 1, 1)
+    date = Date.new(year,  month_lookup_by_name(month) + 1, 1)
     return date.strftime('%a')[0...2]
   end
 
   def get_last_day_of_month(month, year)
     last_day_of_month = calculate_days_month(month, year)
-    @month = month
     @day = last_day_of_month
-
     return Time.new(year, month_lookup_by_name(month) + 1, last_day_of_month).strftime('%a')[0...2]
   end
 
@@ -60,7 +57,8 @@ class Calendar
   end
 
   def get_current_month
-    Time.new.strftime('%m')
+    @month = Time.new.strftime('%m')
+    @month
   end
 
   def get_current_year
@@ -69,7 +67,8 @@ class Calendar
 
   def initialize_month(month, year)
     first_day_of_month = get_first_day_of_month(month, year)
-    @today =  get_current_day_of_month
+    @today =  get_current_day_of_month.to_i
+    @month = month_lookup_by_index(@month)
     
     if first_day_of_month == "Su"
       @col = 0
@@ -96,69 +95,91 @@ class Calendar
   end
 
   def print_calendar(month, year)
-    puts " Su Mo Tu We Th Fr Sa"
-    num_of_days = calculate_days_month(month, year)
-    @col = initialize_month(month, year)
+    if !@months.include?(month)
+      return "Invalid month, enter a 3 letter abbreviation of a month"
 
-    @month = month
-    @year = year
-    @today = get_current_day_of_month
-    i = @day
+    else
+      puts " Su Mo Tu We Th Fr Sa"
+      num_of_days = calculate_days_month(month = month.capitalize, year)
+      @col = initialize_month(month = month.capitalize, year)
 
-    while i <= num_of_days do 
+      #puts "today is: #{@today}"
+      #puts "month is: #{month}"
+      #puts "current month is: #{@month}"
+      #puts "year is: #{year}"
+      #puts "current year is: #{@year}"
 
-      #if the day is less than 10, print 2 spaces
-      if i < 10
+      while @day <= num_of_days do 
 
-        #if the day is today, add brackets
-        if i == @today
-          if @col == 6
-            print " [#{i}]"
-            puts
-            @col = 0
+        #day is less than 10, print 2 spaces
+        if @day < 10
+
+          #if the day is today, add brackets, and print only 1 space
+          if @day == @today && @month == month && @year == year 
+            if @col == 6
+              print " [#{@day}]"
+              puts
+              @col = 0
+            else
+              print " [#{@day}]"
+              @col += 1
+            end
+
+          #otherwise, do not add brackets
           else
-            print " [#{i}]"
-            @col += 1
+            if @col == 6
+              print "  #{@day}"
+              puts
+              @col = 0
+            else
+              print "  #{@day}"
+              @col += 1
+            end
           end
-
-        #i is not today, do not add brackets
-        else
-         if @col == 6
-            print "  #{i}"
-            puts
-            @col = 0
-          else
-            print "  #{i}"
-            @col += 1
-          end
-        end
   
-      #i >= 10, print 1 space
-      else
-        if @col == 6
-          print " #{i}"
-          puts
-          @col = 0
+        #day is greater than 10
         else  
-          print " #{i}"
-          @col += 1
-        end
-      end
 
-      i+=1  
+          #if the day is today, add brackets, and print only 1 space
+          if @day == @today && @month == month && @year == year
+            if @col == 6
+              print " [#{@day}]"
+              puts
+              @col = 0
+            else
+              print " [#{@day}]"   
+              @col += 1         
+            end
+  
+          #otherwise, do not add brackets
+          else
+            if @col == 6
+              print " #{@day}"
+              puts
+              @col = 0
+            else  
+              print " #{@day}"
+              @col += 1
+            end
+          end
+        end
+
+        @day += 1  
+      end
     end
-  end
+  end 
 end
 
 cal = Calendar.new
 #puts cal.months[2]
-#puts cal.month_lookup_by_name("Sep")
+#val = cal.month_lookup_by_name("Sep")
+#puts "#{val}"
 #puts cal.day = 1
 #puts cal.get_first_day_of_month("Feb", 2015)
 #puts cal.get_last_day_of_month("Feb", 2014)
 #puts cal.month
 #puts cal.get_current_day_of_week
 #puts cal.get_current_day_of_month
-#puts cal.get_current_month
+#puts cal.get_current_month.to_i
 #puts cal.get_current_year
-puts cal.print_calendar("Jan", 2015)
+puts cal.print_calendar("Feb", 2015)
