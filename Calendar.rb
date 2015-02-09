@@ -162,6 +162,27 @@ class Calendar
       end
     end
   end 
+
+  def print_calendar_day(day_of_month, month, year)
+    if day_of_month > 31 || month >  12 || month < 1 || year.to_s.length < 4
+      return "enter a valid date"  
+    end
+
+    if month < 10
+      month = "0#{month.to_s}"
+    end
+
+    if day_of_month < 10
+      day_of_month = "0#{day_of_month.to_s}"
+    end
+
+    date_to_parse = "#{year.to_s}-#{month.to_s}-#{day_of_month}.to_s"
+    date = DateTime.parse("#{date_to_parse}")
+    formatted_date = date.strftime('%a, %b %d')
+
+    puts "#{formatted_date}"
+  end 
+
 end
 
 cal = Calendar.new
@@ -176,4 +197,5 @@ cal = Calendar.new
 #puts cal.get_current_day_of_month
 #puts cal.get_current_month.to_i
 #puts cal.get_current_year
-puts cal.print_calendar("Feb", 2015)
+#puts cal.print_calendar("Feb", 2015)
+puts cal.print_calendar_day(11, 12, 2015)
