@@ -12,7 +12,7 @@ class Calendar
     @col, @today = 0
     @day = 1
     @month = get_current_month.to_i
-    @year = get_current_year.to_i
+    @year = get_current_year
   end 
 
   def calculate_days_month(month, year)
@@ -36,7 +36,7 @@ class Calendar
   end
 
   def get_first_day_of_month(month, year)
-    date = Date.new(year,  month_lookup_by_name(month) + 1, 1)
+    date = Date.new(year.to_i, month_lookup_by_name(month) + 1, 1)
     return date.strftime('%a')[0...2]
   end
 
@@ -68,8 +68,8 @@ class Calendar
   def initialize_month(month, year)
     first_day_of_month = get_first_day_of_month(month, year)
     @today =  get_current_day_of_month.to_i
-    @month = month_lookup_by_index(@month)
-    
+    @month = month_lookup_by_index(@month.to_i)
+
     if first_day_of_month == "Su"
       @col = 0
     elsif first_day_of_month == "Mo"
@@ -182,7 +182,6 @@ class Calendar
 
     puts "#{formatted_date}"
   end 
-
 end
 
 cal = Calendar.new
@@ -197,5 +196,5 @@ cal = Calendar.new
 #puts cal.get_current_day_of_month
 #puts cal.get_current_month.to_i
 #puts cal.get_current_year
-#puts cal.print_calendar("Feb", 2015)
-puts cal.print_calendar_day(11, 12, 2015)
+#puts cal.print_calendar("May", 2015)
+#puts cal.print_calendar_day(11, 12, 2015)
