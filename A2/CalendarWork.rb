@@ -3,6 +3,7 @@ require './Calendar'
 class CalendarWork
 
   attr_accessor :days_of_events
+  options = {1 => "V", 2 => "C", 3 => "G", 4 => "E", 5 => "D", 6 => "Q"}
 
   def initialize
     @days_of_events = {}
@@ -24,39 +25,41 @@ class CalendarWork
     puts 
     puts 
 
-    choice = 0
+    choice = ""
 
-    while choice != 6 do
+    while choice.downcase != "q" do
       puts "Choose an option"
       puts "------------------"
 
-      puts "1) View by"
-      puts "2) Create"
-      puts "3) Go to"
-      puts "4) Event list"
-      puts "5) Delete"
-      puts "6) Quit" 
+      puts "1) View by [V]"
+      puts "2) Create [C]"
+      puts "3) Go to [G]"
+      puts "4) Event list [E]"
+      puts "5) Delete [D]"
+      puts "6) Quit [Q]" 
 
       puts
       puts "Enter choice: "
-      choice = gets.chomp.to_i
+      choice = gets.chomp
+      puts
 
-      if choice == 6
+      if choice.downcase == "q"
         break
         #check if there are any events, and if so,
         #save the events to an external file
-      elsif choice == 1
+      elsif choice.downcase == "v"
         #show choose view
-      elsif choice == 2
+        puts
+      elsif choice.downcase == "c"
         puts 
         #show create view
-      elsif choice == 3
+      elsif choice.downcase == "g" 
         puts
         #show go to
-      elsif choice == 4
+      elsif choice.downcase == "e"
         puts
         #Show events
-      elsif choice == 5
+      elsif choice.downcase == "d"
         puts
         #Show delete event
       else
