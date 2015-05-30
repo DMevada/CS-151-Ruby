@@ -184,18 +184,3 @@ class Calendar
     puts "#{formatted_date}"
   end 
 end
-
-cal = Calendar.new
-#puts cal.months[2]
-#val = cal.month_lookup_by_name("Sep")
-#puts "#{val}"
-#puts cal.day = 1
-#puts cal.get_first_day_of_month("Feb", 2015)
-#puts cal.get_last_day_of_month("Feb", 2014)
-#puts cal.month
-#puts cal.get_current_day_of_week
-#puts cal.get_current_day_of_month
-#puts cal.get_current_month.to_i
-#puts cal.get_current_year
-#puts cal.print_calendar("May", 2015)
-#puts cal.print_calendar_day(11, 12, 2015)
