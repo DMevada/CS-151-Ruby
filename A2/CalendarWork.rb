@@ -24,40 +24,39 @@ class CalendarWork
     puts 
     puts 
 
-    choice = ""
+    choice = 0
 
-    while choice.casecmp("Q") == -1 do
+    while choice != 6 do
       puts "Choose an option"
       puts "------------------"
 
-      puts "1) View by [V]"
-      puts "2) Create [C]"
-      puts "3) Go to [G]"
-      puts "4) Event list [E]"
-      puts "5) Delete [D]"
-      puts "6) Quit [Q]" 
+      puts "1) View by"
+      puts "2) Create"
+      puts "3) Go to"
+      puts "4) Event list"
+      puts "5) Delete"
+      puts "6) Quit" 
 
       puts
       puts "Enter choice: "
-      choice = gets.chomp
+      choice = gets.chomp.to_i
 
-      if choice.casecmp("Q") == 0
+      if choice == 6
         break
         #check if there are any events, and if so,
         #save the events to an external file
-      elsif choice.casecmp("V") == 0
-        puts 
+      elsif choice == 1
         #show choose view
-      elsif choice.casecmp("C") == 0
+      elsif choice == 2
         puts 
         #show create view
-      elsif choice.casecmp("G") == 0
+      elsif choice == 3
         puts
         #show go to
-      elsif choice.casecmp("E") == 0
+      elsif choice == 4
         puts
         #Show events
-      elsif choice.casecmp("D") == 0
+      elsif choice == 5
         puts
         #Show delete event
       else
