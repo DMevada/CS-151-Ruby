@@ -161,6 +161,7 @@ class Calendar
         @day += 1  
       end
     end
+    @day -= 1
   end 
 
   def print_calendar_day(day_of_month, month, year)
