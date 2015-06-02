@@ -48,7 +48,7 @@ class CalendarWork
         #check if there are any events, and if so,
         #save the events to an external file
       elsif choice.downcase == "v"
-        #show choose view
+        show_view_choose_by_view(c)        
         puts
       elsif choice.downcase == "c"
         puts 
@@ -68,6 +68,28 @@ class CalendarWork
       end
     end
   end
+
+  def show_view_choose_by_view(calendar)
+    puts "Choose an option"
+    puts "1) Day view [D]"
+    puts "2) Month view [M]"
+  
+    choice = gets.chomp
+
+    if choice.downcase == 'm'
+      #show view by month
+    elsif choice.downcase == 'd'  
+      #show view by day
+    else
+      puts
+      puts "Invalid option, try again"
+      puts      
+    end
+      
+    calendar.print_calendar(calendar.month_lookup_by_index(calendar.get_current_month.to_i), calendar.get_current_year)
+    puts
+  end
+
 end
 
 cal = CalendarWork.new

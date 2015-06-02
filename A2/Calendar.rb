@@ -103,6 +103,8 @@ class Calendar
       num_of_days = calculate_days_month(month = month.capitalize, year)
       @col = initialize_month(month = month.capitalize, year)
 
+      puts "day is: #{@day}"
+
       while @day <= num_of_days do 
 
         #day is less than 10, print 2 spaces
@@ -167,13 +169,9 @@ class Calendar
   def print_calendar_day(day_of_month, month, year)
     if day_of_month > 31 || month >  12 || month < 1 || year.to_s.length < 4
       return "enter a valid date"  
-    end
-
-    if month < 10
+    elsif month < 10
       month = "0#{month.to_s}"
-    end
-
-    if day_of_month < 10
+    elsif day_of_month < 10
       day_of_month = "0#{day_of_month.to_s}"
     end
 
