@@ -6,13 +6,16 @@ class Calendar
   attr_reader :rows, :columns
 
   def initialize
-    @months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    @months = {1 => "Jan", 2 => "Feb", 3 => "Mar", 4 => "Apr", 5 => "May", 6 => "Jun", 7 => "Jul", 8 => "Aug", 9 => "Sep", 10 => "Oct", 11 => "Nov", 12 => "Dec"}
     @rows = 6
     @columns = 7
-    @col, @today = 0
+    @col = 0
+    @today = get_current_day_of_month
     @day = 1
-    @month = get_current_month.to_i
+    @month = get_current_month
     @year = get_current_year
+    @current_month = get_current_month
+    @current_year = get_current_year
   end 
 
   def calculate_days_month(month, year)
@@ -28,47 +31,43 @@ class Calendar
   end
 
   def month_lookup_by_index(index)
-    @months[index-1]
+    @months[index]
   end
 
   def month_lookup_by_name(name)
-    @months.index(name)
+    @months.key(name)
   end
 
   def get_first_day_of_month(month, year)
-    date = Date.new(year.to_i, month_lookup_by_name(month) + 1, 1)
+    date = Date.new(year.to_i, month_lookup_by_name(month), 1)
     return date.strftime('%a')[0...2]
   end
 
   def get_last_day_of_month(month, year)
     last_day_of_month = calculate_days_month(month, year)
     @day = last_day_of_month
-    return Time.new(year, month_lookup_by_name(month) + 1, last_day_of_month).strftime('%a')[0...2]
+    return Time.new(year, month_lookup_by_name(month), last_day_of_month).strftime('%a')[0...2]
   end
 
-  def get_current_day_of_week()
+  def get_current_day_of_week
     Time.new.strftime('%a')[0...2]
   end
 
-  def get_current_day_of_month()
+  def get_current_day_of_month
     current_day_of_month = Time.new.strftime('%d')
-    @today = current_day_of_month
-    current_day_of_month
+    @today = current_day_of_month.to_i
   end
 
   def get_current_month
-    @month = Time.new.strftime('%m')
-    @month
+    @month = month_lookup_by_index(Time.new.strftime('%m').to_i)
   end
 
   def get_current_year
-    Time.new.strftime('%Y')
+    Time.new.strftime('%Y').to_i
   end
 
   def initialize_month(month, year)
     first_day_of_month = get_first_day_of_month(month, year)
-    @today =  get_current_day_of_month.to_i
-    @month = month_lookup_by_index(@month.to_i)
 
     if first_day_of_month == "Su"
       @col = 0
@@ -95,7 +94,7 @@ class Calendar
   end
 
   def print_calendar(month, year)
-    if !@months.include?(month)
+    if !@months.values.include?(month)
       return "Invalid month, enter a 3 letter abbreviation of a month"
 
     else
@@ -103,15 +102,13 @@ class Calendar
       num_of_days = calculate_days_month(month = month.capitalize, year)
       @col = initialize_month(month = month.capitalize, year)
 
-      puts "day is: #{@day}"
-
       while @day <= num_of_days do 
 
         #day is less than 10, print 2 spaces
         if @day < 10
 
           #if the day is today, add brackets, and print only 1 space
-          if @day == @today && @month == month && @year == year 
+          if @day == @today && @month == @current_month && @year == @current_year 
             if @col == 6
               print " [#{@day}]"
               puts
@@ -137,7 +134,7 @@ class Calendar
         else  
 
           #if the day is today, add brackets, and print only 1 space
-          if @day == @today && @month == month && @year == year
+          if @day == @today && @month == @current_month && @year == @current_year
             if @col == 6
               print " [#{@day}]"
               puts
@@ -160,7 +157,7 @@ class Calendar
           end
         end
 
-        @day += 1  
+        @day += 1 
       end
     end
     @day -= 1
@@ -182,3 +179,16 @@ class Calendar
     puts "#{formatted_date}"
   end 
 end
+
+# c = Calendar.new
+# puts "#{c.month_lookup_by_index(1)}"
+# puts "#{c.month_lookup_by_name("Jan")}"
+# puts "#{c.get_first_day_of_month("Jun", 2015)}"
+# puts "#{c.get_last_day_of_month("Jun", 2015)}"
+# puts "#{c.get_current_day_of_week}"
+# puts "#{c.get_current_year}"
+# puts "#{c.get_current_day_of_month}"
+# puts "#{c.calculate_days_month("Jun", 2015)}"
+# puts "#{c.initialize_month("Jun", 2015)}"
+# puts "#{c.month}, #{c.year}"
+# puts "#{c.print_calendar("Jun", 2015)}"
