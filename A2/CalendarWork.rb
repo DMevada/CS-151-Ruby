@@ -80,7 +80,8 @@ class CalendarWork
       puts
       show_view_by_month(calendar)
     elsif choice.downcase == 'd'  
-      #show view by day
+      puts
+      show_view_by_day(calendar)
     else
       puts
       puts "Invalid option, try again"
@@ -123,6 +124,7 @@ class CalendarWork
       elsif choice.downcase == 'p'
         index = calendar.month_lookup_by_name(calendar.month)
 
+        # Jan, previous month is Dec
         if index == 1
           index = 12
           calendar.year = calendar.year - 1
@@ -133,6 +135,8 @@ class CalendarWork
           puts
           calendar.print_calendar("Dec", calendar.year)
           puts
+
+        # Not Jan  
         else  
           index -= 1
           calendar.month = calendar.month_lookup_by_index(index)
@@ -148,6 +152,8 @@ class CalendarWork
       elsif choice.downcase == 'n'
         puts
         index = calendar.month_lookup_by_name(calendar.month)
+
+        # Dec, next month is Jan
         if index == 12
           index = 1
           calendar.year = calendar.year + 1
@@ -158,6 +164,8 @@ class CalendarWork
           puts
           calendar.print_calendar("Jan", calendar.year)
           puts
+
+        # Not Dec
         else  
           index += 1
           calendar.month = calendar.month_lookup_by_index(index)
@@ -172,6 +180,105 @@ class CalendarWork
       else  
         puts "Invalid option, select an option from the menu"    
         puts  
+      end
+    end
+  end
+
+  def show_view_by_day(calendar)
+    choice = ""
+    puts "#{calendar.print_calendar_day(calendar.today, calendar.month, calendar.year)}"
+    puts
+
+    calendar.day = calendar.today
+    calendar.month = calendar.get_current_month
+    calendar.year = calendar.get_current_year
+
+    while choice.downcase != 'm'
+      puts "Choose an option"
+      puts "------------------"
+      puts "1) Previous day [P]"
+      puts "2) Next day [N]"
+      puts "3) Main menu [M]"
+
+      choice = gets.chomp
+
+      if choice.downcase == 'm'
+        return
+
+      elsif choice.downcase == 'p'
+        # puts "#{calendar.print_calendar_day(calendar.day, calendar.month, calendar.year)}"
+        puts
+        index = calendar.month_lookup_by_name(calendar.month)
+
+        # Jan 1st
+        if index == 1 && calendar.day == 1
+          index = 12
+          calendar.year = calendar.year - 1
+          calendar.month = "Dec"
+
+          last_day =  calendar.calculate_days_month(calendar.month, calendar.year)
+          calendar.day =  last_day
+          calendar.print_calendar_day(last_day, calendar.month, calendar.year)
+
+       # Not Jan 1st  
+        else  
+
+          # first day of month
+          if calendar.day == 1
+            index -=1
+            calendar.month = calendar.month_lookup_by_index(index)
+            last_day =  calendar.calculate_days_month(calendar.month, calendar.year)
+
+            calendar.day = last_day
+            calendar.print_calendar_day(last_day, calendar.month, calendar.year)
+            puts
+
+          # not the first day of the month  
+          else  
+            previous_day =  calendar.day - 1
+            calendar.day = previous_day
+            calendar.print_calendar_day(previous_day, calendar.month, calendar.year)
+            puts
+          end
+        end
+            
+      elsif choice.downcase == 'n'      
+        index = calendar.month_lookup_by_name(calendar.month)
+        puts
+
+        # Dec 31st
+        if index == 12 && calendar.day == 31
+          index = 0
+          calendar.year = calendar.year + 1
+          calendar.month = "Jan"
+
+          calendar.day = 1
+          first_day = calendar.day
+          calendar.print_calendar_day(first_day, calendar.month, calendar.year)
+        
+        # Not Dec 31st  
+        else
+          
+          # End of month
+          if calendar.day == calendar.calculate_days_month(calendar.month, calendar.year)
+            index += 1
+            calendar.month = calendar.month_lookup_by_index(index)
+
+            calendar.day = 1
+            calendar.print_calendar_day(calendar.day, calendar.month, calendar.year)
+            puts
+
+          # Not end of month  
+          else  
+            calendar.day = calendar.day + 1
+            calendar.print_calendar_day(calendar.day, calendar.month, calendar.year)
+            puts
+          end
+        end
+
+      else  
+        puts "Invalid option, select an option from the menu"    
+        puts      
       end
     end
   end

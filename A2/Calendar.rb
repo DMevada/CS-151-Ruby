@@ -2,7 +2,7 @@ require 'date'
 
 class Calendar
 
-  attr_accessor :day, :col, :today, :month, :months, :year
+  attr_accessor :day, :col, :today, :month, :months, :year, :current_month, :current_year
   attr_reader :rows, :columns
 
   def initialize
@@ -164,6 +164,8 @@ class Calendar
   end 
 
   def print_calendar_day(day_of_month, month, year)
+    month = @months.key(month)
+
     if day_of_month > 31 || month >  12 || month < 1 || year.to_s.length < 4
       return "enter a valid date"  
     elsif month < 10
@@ -180,7 +182,7 @@ class Calendar
   end 
 end
 
-# c = Calendar.new
+c = Calendar.new
 # puts "#{c.month_lookup_by_index(1)}"
 # puts "#{c.month_lookup_by_name("Jan")}"
 # puts "#{c.get_first_day_of_month("Jun", 2015)}"
@@ -192,3 +194,4 @@ end
 # puts "#{c.initialize_month("Jun", 2015)}"
 # puts "#{c.month}, #{c.year}"
 # puts "#{c.print_calendar("Jun", 2015)}"
+# puts "#{c.print_calendar_day(c.today, c.current_month, c.current_year)}"
