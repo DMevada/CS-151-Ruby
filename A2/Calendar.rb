@@ -181,17 +181,3 @@ class Calendar
     puts "#{formatted_date}"
   end 
 end
-
-c = Calendar.new
-# puts "#{c.month_lookup_by_index(1)}"
-# puts "#{c.month_lookup_by_name("Jan")}"
-# puts "#{c.get_first_day_of_month("Jun", 2015)}"
-# puts "#{c.get_last_day_of_month("Jun", 2015)}"
-# puts "#{c.get_current_day_of_week}"
-# puts "#{c.get_current_year}"
-# puts "#{c.get_current_day_of_month}"
-# puts "#{c.calculate_days_month("Jun", 2015)}"
-# puts "#{c.initialize_month("Jun", 2015)}"
-# puts "#{c.month}, #{c.year}"
-# puts "#{c.print_calendar("Jun", 2015)}"
-# puts "#{c.print_calendar_day(c.today, c.current_month, c.current_year)}"
