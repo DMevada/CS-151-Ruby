@@ -200,7 +200,7 @@ class CalendarWork
       puts "2) Next day [N]"
       puts "3) Main menu [M]"
 
-      choice = gets.chomp
+      choice = gets.chomp   
 
       if choice.downcase == 'm'
         return
@@ -282,6 +282,60 @@ class CalendarWork
       end
     end
   end
+
+  def show_create_event(calendar)
+    choice = ""
+
+    title = ""
+    date = ""
+    start = ""
+    stop = ""
+    event = Event.new
+
+    while choice.downcase != 'm'
+      puts "1) Create Event [C]"
+      puts "2) Main Menu [M]"
+
+      choice = gets.chomp
+
+      if choice.downcase == 'c'
+        puts "Enter title: "
+        title = gets.chomp
+
+        puts "Enter date as MM/DD/YYYY: "
+        date = gets.chomp
+
+        puts "Enter start time as 00:00 format"
+        start = gets.chomp
+
+        puts "Enter stop time as 00:00 or n to skip"
+        stop = gets.chomp
+        
+        day_of_month = date[3..4]
+        month = date[0..1]
+        year = date[6..date.length]
+
+        event.title = title
+        event.date = date
+        event.start_time = start
+        event.end_time = stop
+        event.day_of_month = day_of_month
+        event.month = month_lookup_by_index
+        event.year = year
+
+        if days_of_events.has_key?(date)
+          days_of_events[:date] << event 
+        else
+          days_of_events[:date] = []
+          days_of_events[:date] << event  
+        end  
+
+      end  
+
+    end
+
+  end
+
 end
 
 cal = CalendarWork.new
