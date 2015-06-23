@@ -1,4 +1,5 @@
 require './Calendar'
+require './Event'
 
 class CalendarWork
 
@@ -52,7 +53,7 @@ class CalendarWork
         puts
       elsif choice.downcase == "c"
         puts 
-        #show create view
+        show_create_event
       elsif choice.downcase == "g" 
         puts
         #show go to
@@ -225,7 +226,7 @@ class CalendarWork
 
           # first day of month
           if calendar.day == 1
-            index -=1
+            index -= 1
             calendar.month = calendar.month_lookup_by_index(index)
             last_day =  calendar.calculate_days_month(calendar.month, calendar.year)
 
@@ -283,7 +284,7 @@ class CalendarWork
     end
   end
 
-  def show_create_event(calendar)
+  def show_create_event
     choice = ""
 
     title = ""
@@ -291,6 +292,7 @@ class CalendarWork
     start = ""
     stop = ""
     event = Event.new
+    puts
 
     while choice.downcase != 'm'
       puts "1) Create Event [C]"
@@ -311,31 +313,41 @@ class CalendarWork
         puts "Enter stop time as 00:00 or n to skip"
         stop = gets.chomp
         
-        day_of_month = date[3..4]
-        month = date[0..1]
-        year = date[6..date.length]
+        day_of_month = date[3..4].to_i
+        month = date[0..1].to_i
+        year = date[6..date.length].to_i
 
         event.title = title
         event.date = date
         event.start_time = start
         event.end_time = stop
         event.day_of_month = day_of_month
-        event.month = month_lookup_by_index
+        event.month = month
         event.year = year
 
         if days_of_events.has_key?(date)
-          days_of_events[:date] << event 
+          @days_of_events[date] << event 
         else
-          days_of_events[:date] = []
-          days_of_events[:date] << event  
-        end  
+          @days_of_events[date] = []
+          @days_of_events[date] << event  
+        end 
 
-      end  
+        if stop.downcase != 'n'
+          puts "#{@months[month]} #{event.day_of_month}, #{event.start_time} #{event.end_time} #{event.title}"
+        else
+          puts "#{@months[month]} #{event.day_of_month}, #{event.start_time} #{event.title}"       
+        end
+      elsif choice.downcase == 'm'
+        return
+      else
+        puts "Please select an option from the list"       
+      end 
+
+      puts @days_of_events[date]
+      puts @days_of_events
 
     end
-
   end
-
 end
 
 cal = CalendarWork.new
