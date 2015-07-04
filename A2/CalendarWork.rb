@@ -52,7 +52,6 @@ class CalendarWork
         show_view_choose_by_view(c)        
         puts
       elsif choice.downcase == "c"
-        puts 
         show_create_event
       elsif choice.downcase == "g" 
         puts
@@ -295,6 +294,7 @@ class CalendarWork
     puts
 
     while choice.downcase != 'm'
+      puts
       puts "1) Create Event [C]"
       puts "2) Main Menu [M]"
 
@@ -319,7 +319,7 @@ class CalendarWork
 
         event.title = title
         event.date = date
-        event.start_time = start
+        event.start_time = start_time
         event.end_time = stop
         event.day_of_month = day_of_month
         event.month = month
@@ -343,10 +343,50 @@ class CalendarWork
         puts "Please select an option from the list"       
       end 
 
-      puts @days_of_events[date]
       puts @days_of_events
+      puts
 
     end
+  end
+
+  def show_go_to(calendar)
+    puts "Enter date as MM/DD/YYYY: "
+    date = gets.chomp
+
+    #print map of days and events here
+
+  end
+
+  def show_event_list(calendar)
+    #display list of all events
+  end
+
+  def show_delete_view(calendar)
+    choice = ''
+
+    while choice.downcase != 'm'
+      puts "1) Selected [S]"
+      puts "2) All [A]"
+      puts "3) Main menu [M]"
+
+      choice = gets.chomp
+
+      if choice.downcase == 'a'
+        if @days_of_events.empty?
+          puts "No events exist, cannot delete"
+        else  
+          @days_of_events.clear
+        end  
+      elsif choice.downcase == 's'
+        if @days_of_events.empty?
+          puts "No events exist, cannot delete"
+        else  
+          puts "Enter date to remove, as MM/DD/YYYY: "
+          date = gets.chomp
+          @days_of_events.delete(date) if @days_of_events.has_key(date)
+        end   
+      end
+    end  
   end
 end
 
