@@ -180,4 +180,26 @@ class Calendar
 
     puts "#{formatted_date}"
   end 
+
+  def print_hash_of_event(events_and_days, date)
+    day_of_month = date[0..1].to_i
+    month = date[3..4].to_i
+    year = date[6..9].to_i
+
+    print_calendar_day(day_of_month, month, year)
+    events = []
+    events = events_and_days[date]
+
+    events.each do |event|
+      puts event.to_s
+    end  
+  end
+
+  def print_hash_of_events(events_and_days)
+    if events_and_days.empty?
+      puts "No events scheduled"
+    else
+      puts events_and_days  
+    end
+  end
 end

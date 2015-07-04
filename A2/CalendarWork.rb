@@ -46,22 +46,21 @@ class CalendarWork
 
       if choice.downcase == "q"
         break
-        #check if there are any events, and if so,
-        #save the events to an external file
       elsif choice.downcase == "v"
         show_view_choose_by_view(c)        
         puts
       elsif choice.downcase == "c"
         show_create_event
+        puts
       elsif choice.downcase == "g" 
+        show_go_to(c)
         puts
-        #show go to
       elsif choice.downcase == "e"
+        show_event_list(c)
         puts
-        #Show events
       elsif choice.downcase == "d"
+        show_delete_view(c)
         puts
-        #Show delete event
       else
         puts "Please select a choice from the menu"
         puts
@@ -319,7 +318,7 @@ class CalendarWork
 
         event.title = title
         event.date = date
-        event.start_time = start_time
+        event.start_time = start
         event.end_time = stop
         event.day_of_month = day_of_month
         event.month = month
@@ -351,14 +350,13 @@ class CalendarWork
 
   def show_go_to(calendar)
     puts "Enter date as MM/DD/YYYY: "
-    date = gets.chomp
+    date = gets.chomp.to_s
 
-    #print map of days and events here
-
+    calendar.print_hash_of_event(@days_of_events, date)
   end
 
   def show_event_list(calendar)
-    #display list of all events
+    calendar.print_hash_of_events(@days_of_events)
   end
 
   def show_delete_view(calendar)

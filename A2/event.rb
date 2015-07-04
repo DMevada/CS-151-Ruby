@@ -6,8 +6,7 @@ class Event
 		@months = {1 => "Jan", 2 => "Feb", 3 => "Mar", 4 => "Apr", 5 => "May", 6 => "Jun", 7 => "Jul", 8 => "Aug", 9 => "Sep", 10 => "Oct", 11 => "Nov", 12 => "Dec"}
 	end
 
-  def compare
-    
-  end
-
+  def to_s
+    "#{@months[month]} #{day_of_month} #{start_time} - #{end_time} #{title}"
+  end  
 end
