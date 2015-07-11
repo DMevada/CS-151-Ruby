@@ -164,7 +164,6 @@ class Calendar
   end 
 
   def print_calendar_day(day_of_month, month, year)
-    month = @months.key(month)
 
     if day_of_month > 31 || month >  12 || month < 1 || year.to_s.length < 4
       return "enter a valid date"  
@@ -182,8 +181,8 @@ class Calendar
   end 
 
   def print_hash_of_event(events_and_days, date)
-    day_of_month = date[0..1].to_i
-    month = date[3..4].to_i
+    day_of_month = date[3..4].to_i
+    month = date[0..1].to_i
     year = date[6..9].to_i
 
     print_calendar_day(day_of_month, month, year)
