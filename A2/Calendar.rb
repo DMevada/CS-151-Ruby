@@ -181,6 +181,12 @@ class Calendar
   end 
 
   def print_hash_of_event(events_and_days, date)
+    if events_and_days.empty?
+      puts
+      puts "No events scheduled"
+      return
+    end
+
     day_of_month = date[3..4].to_i
     month = date[0..1].to_i
     year = date[6..9].to_i
@@ -197,6 +203,7 @@ class Calendar
   def print_hash_of_events(events_and_days)
     if events_and_days.empty?
       puts "No events scheduled"
+      return
     else
       puts events_and_days  
     end
