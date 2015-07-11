@@ -372,16 +372,19 @@ class CalendarWork
       if choice.downcase == 'a'
         if @days_of_events.empty?
           puts "No events exist, cannot delete"
+          puts
         else  
           @days_of_events.clear
         end  
       elsif choice.downcase == 's'
         if @days_of_events.empty?
           puts "No events exist, cannot delete"
+          puts
         else  
           puts "Enter date to remove, as MM/DD/YYYY: "
           date = gets.chomp
-          @days_of_events.delete(date) if @days_of_events.has_key(date)
+          @days_of_events.delete(date) if @days_of_events.has_key?(date)
+          puts
         end   
       end
     end  
