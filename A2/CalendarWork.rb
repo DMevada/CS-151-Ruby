@@ -290,10 +290,8 @@ class CalendarWork
     start = ""
     stop = ""
     event = Event.new
-    puts
 
     while choice.downcase != 'm'
-      puts
       puts "1) Create Event [C]"
       puts "2) Main Menu [M]"
 
@@ -331,6 +329,8 @@ class CalendarWork
           @days_of_events[date] << event  
         end 
 
+        puts
+
         if stop.downcase != 'n'
           puts "#{@months[month]} #{event.day_of_month}, #{event.start_time} #{event.end_time} #{event.title}"
         else
@@ -342,16 +342,14 @@ class CalendarWork
         puts "Please select an option from the list"       
       end 
 
-      puts @days_of_events
       puts
-
     end
   end
 
   def show_go_to(calendar)
     puts "Enter date as MM/DD/YYYY: "
     date = gets.chomp.to_s
-
+    puts
     calendar.print_hash_of_event(@days_of_events, date)
   end
 

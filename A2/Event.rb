@@ -7,6 +7,6 @@ class Event
   end
 
   def to_s
-    "#{@months[month]} #{day_of_month} #{start_time} - #{end_time} #{title}"
+    "#{@months[month]} #{day_of_month}, #{start_time} - #{end_time} #{title}"
   end  
 end
