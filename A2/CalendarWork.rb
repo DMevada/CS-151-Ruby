@@ -45,6 +45,9 @@ class CalendarWork
       puts
 
       if choice.downcase == "q"
+        open('events.txt', 'w') do |file|
+          file.puts @days_of_events
+        end 
         break
       elsif choice.downcase == "v"
         show_view_choose_by_view(c)        
